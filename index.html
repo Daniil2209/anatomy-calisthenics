@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPORTI — Интерактивная анатомия калистеники и тренировки</title>
+  <meta name="description" content="Узнайте, какие мышцы работают в калистенике. Интерактивная анатомическая модель человека, подробные биомеханические разборы и база лучших упражнений с собственным весом.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Glow FX -->
+  <div class="glow-sphere glow-1" id="glow-1"></div>
+  <div class="glow-sphere glow-2" id="glow-2"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <a href="#" class="logo-container" id="btn-logo">
+        <span class="logo-icon"><i class="fa-solid fa-dumbbell"></i></span>
+        <span class="logo-text">SPO<span class="logo-accent">RTI</span></span>
+      </a>
+      <p class="header-tagline">Интерактивный атлас тренировок с собственным весом</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main container">
+    
+    <!-- Top Interactive Section (Anatomy + Info) -->
+    <section class="interactive-section" aria-label="Интерактивная анатомия">
+      
+      <!-- Visualizer Card (Left side on desktop) -->
+      <div class="card visualizer-card">
+        <div class="visualizer-header">
+          <h2 class="section-title">
+            <span class="gradient-text">Анатомическая модель</span>
+          </h2>
+          <div class="toggle-container">
+            <button id="toggle-front" class="toggle-btn active" data-view="front">
+              <i class="fa-solid fa-child"></i> Вид спереди
+            </button>
+            <button id="toggle-back" class="toggle-btn" data-view="back">
+              <i class="fa-solid fa-child-backwards"></i> Вид сзади
+            </button>
+          </div>
+        </div>
+
+        <div class="svg-container">
+          <!-- FRONT VIEW SVG -->
+          <svg id="svg-front" class="anatomy-svg active" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            <!-- Body Silhouette Base (Non-clickable, Dark grey) -->
+            <!-- Head & Neck -->
+            <circle cx="150" cy="45" r="20" class="body-deco" />
+            <path d="M 135 60 Q 150 70 165 60 L 165 75 Q 150 80 135 75 Z" class="body-deco" />
+            
+            <!-- Lower legs (Front decor) -->
+            <path d="M 120 340 L 110 420 L 135 420 L 148 340 Z" class="body-deco" />
+            <path d="M 180 340 L 190 420 L 165 420 L 152 340 Z" class="body-deco" />
+
+            <!-- CLICKABLE MUSCLE GROUPS (FRONT) -->
+            <!-- Shoulders (Deltoids - Left & Right) -->
+            <path d="M 115 85 L 90 100 L 95 135 L 120 130 Z" class="muscle-group-path" data-muscle="shoulders" id="front-shoulder-l" />
+            <path d="M 185 85 L 210 100 L 205 135 L 180 130 Z" class="muscle-group-path" data-muscle="shoulders" id="front-shoulder-r" />
+            
+            <!-- Biceps (Left & Right) -->
+            <path d="M 95 135 L 80 180 L 100 180 L 115 135 Z" class="muscle-group-path" data-muscle="biceps" id="front-bicep-l" />
+            <path d="M 205 135 L 220 180 L 200 180 L 185 135 Z" class="muscle-group-path" data-muscle="biceps" id="front-bicep-r" />
+
+            <!-- Chest (Pectorals) -->
+            <path d="M 115 85 L 150 90 L 185 85 L 180 130 L 150 135 L 120 130 Z" class="muscle-group-path" data-muscle="chest" id="front-chest" />
+
+            <!-- Abs (Rectus Abdominis) -->
+            <path d="M 125 135 L 175 135 L 170 220 L 130 220 Z" class="muscle-group-path" data-muscle="abs" id="front-abs" />
+
+            <!-- Obliques (Left & Right Sides) -->
+            <path d="M 125 135 L 112 135 L 110 220 L 130 220 Z" class="muscle-group-path" data-muscle="obliques" id="front-oblique-l" />
+            <path d="M 175 135 L 188 135 L 190 220 L 170 220 Z" class="muscle-group-path" data-muscle="obliques" id="front-oblique-r" />
+
+            <!-- Forearms (Left & Right) -->
+            <path d="M 80 180 L 70 230 L 85 230 L 100 180 Z" class="muscle-group-path" data-muscle="forearms" id="front-forearm-l" />
+            <path d="M 220 180 L 230 230 L 215 230 L 200 180 Z" class="muscle-group-path" data-muscle="forearms" id="front-forearm-r" />
+
+            <!-- Quadriceps (Thighs/Hips) -->
+            <path d="M 110 220 L 190 220 L 180 340 L 152 340 L 152 270 Q 150 268 148 270 L 148 340 L 120 340 Z" class="muscle-group-path" data-muscle="quads" id="front-quads" />
+          </svg>
+
+          <!-- BACK VIEW SVG -->
+          <svg id="svg-back" class="anatomy-svg" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            <!-- Body Silhouette Base (Non-clickable, Dark grey) -->
+            <!-- Head & Neck -->
+            <circle cx="150" cy="45" r="20" class="body-deco" />
+            <path d="M 135 60 Q 150 70 165 60 L 165 75 Q 150 80 135 75 Z" class="body-deco" />
+            
+            <!-- Forearms (Back decor) -->
+            <path d="M 80 180 L 70 230 L 85 230 L 100 180 Z" class="body-deco" />
+            <path d="M 220 180 L 230 230 L 215 230 L 200 180 Z" class="body-deco" />
+
+            <!-- CLICKABLE MUSCLE GROUPS (BACK) -->
+            <!-- Shoulders (Rear Deltoids - Left & Right) -->
+            <path d="M 115 85 L 90 100 L 95 135 L 120 130 Z" class="muscle-group-path" data-muscle="shoulders" id="back-shoulder-l" />
+            <path d="M 185 85 L 210 100 L 205 135 L 180 130 Z" class="muscle-group-path" data-muscle="shoulders" id="back-shoulder-r" />
+
+            <!-- Triceps (Left & Right) -->
+            <path d="M 95 135 L 80 180 L 100 180 L 115 135 Z" class="muscle-group-path" data-muscle="triceps" id="back-tricep-l" />
+            <path d="M 205 135 L 220 180 L 200 180 L 185 135 Z" class="muscle-group-path" data-muscle="triceps" id="back-tricep-r" />
+
+            <!-- Back (Trapezius & Latissimus) -->
+            <path d="M 115 85 L 150 60 L 185 85 L 180 130 L 175 170 L 125 170 L 120 130 Z" class="muscle-group-path" data-muscle="back" id="back-latissimus" />
+
+            <!-- Lower Back -->
+            <path d="M 125 170 L 175 170 L 170 220 L 130 220 Z" class="muscle-group-path" data-muscle="lowerback" id="back-lowerback" />
+
+            <!-- Glutes & Hamstrings -->
+            <path d="M 110 220 L 190 220 L 180 340 L 152 340 L 152 270 Q 150 268 148 270 L 148 340 L 120 340 Z" class="muscle-group-path" data-muscle="glutes-hamstrings" id="back-glutes" />
+
+            <!-- Calves (Left & Right) -->
+            <path d="M 120 340 L 110 420 L 135 420 L 148 340 Z" class="muscle-group-path" data-muscle="calves" id="back-calves-l" />
+            <path d="M 180 340 L 190 420 L 165 420 L 152 340 Z" class="muscle-group-path" data-muscle="calves" id="back-calves-r" />
+          </svg>
+        </div>
+        <div class="visualizer-footer">
+          <p class="instruction-text"><i class="fa-solid fa-hand-pointer"></i> Кликните на мышцу, чтобы открыть базу упражнений</p>
+        </div>
+      </div>
+
+      <!-- Info Details Card (Right side on desktop) -->
+      <div class="card info-card" id="muscle-info-container">
+        <!-- Default State (Unselected) -->
+        <div id="muscle-info-placeholder" class="info-placeholder">
+          <div class="placeholder-icon"><i class="fa-solid fa-dna"></i></div>
+          <h3>Биомеханический анализ</h3>
+          <p>Выберите группу мышц на анатомическом силуэте или воспользуйтесь кнопками быстрого выбора ниже, чтобы изучить детальную анатомию и открыть список высокоэффективных калистенических упражнений.</p>
+        </div>
+
+        <!-- Selected State (Dynamically populated) -->
+        <div id="muscle-info-content" class="info-content hidden">
+          <span class="accent-badge" id="muscle-info-badge">Анатомия</span>
+          <h2 class="muscle-title" id="muscle-info-name">Мышца не выбрана</h2>
+          
+          <div class="info-block">
+            <h4><i class="fa-solid fa-circle-info text-accent"></i> Как это работает (Биомеханика)</h4>
+            <p id="muscle-info-anatomy">Анатомическое описание...</p>
+          </div>
+
+          <div class="info-block">
+            <h4><i class="fa-solid fa-bolt text-accent"></i> Роль в калистенике</h4>
+            <p id="muscle-info-exercises">Биомеханика в упражнениях с собственным весом...</p>
+          </div>
+
+          <a href="#exercises-section" class="scroll-btn" id="btn-scroll-to-exercises">
+            Посмотреть упражнения <i class="fa-solid fa-arrow-down"></i>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Quick Selection Grid (Muscle Cards) -->
+    <section class="quick-select-section" aria-label="Быстрый выбор мышцы">
+      <h3 class="subsection-title">Быстрый выбор группы мышц</h3>
+      <div class="quick-grid">
+        <button class="quick-card" data-muscle="chest">
+          <span class="quick-card-icon"><i class="fa-solid fa-circle-nodes"></i></span>
+          <span class="quick-card-name">Грудные</span>
+        </button>
+        <button class="quick-card" data-muscle="abs">
+          <span class="quick-card-icon"><i class="fa-solid fa-cubes"></i></span>
+          <span class="quick-card-name">Пресс</span>
+        </button>
+        <button class="quick-card" data-muscle="obliques">
+          <span class="quick-card-icon"><i class="fa-solid fa-arrows-left-right"></i></span>
+          <span class="quick-card-name">Косые мышцы</span>
+        </button>
+        <button class="quick-card" data-muscle="shoulders">
+          <span class="quick-card-icon"><i class="fa-solid fa-child-reaching"></i></span>
+          <span class="quick-card-name">Плечи</span>
+        </button>
+        
+        <button class="quick-card" data-muscle="biceps">
+          <span class="quick-card-icon"><i class="fa-solid fa-hand-fist"></i></span>
+          <span class="quick-card-name">Бицепс</span>
+        </button>
+        <button class="quick-card" data-muscle="triceps">
+          <span class="quick-card-icon"><i class="fa-solid fa-hand-back-fist"></i></span>
+          <span class="quick-card-name">Трицепс</span>
+        </button>
+        <button class="quick-card" data-muscle="forearms">
+          <span class="quick-card-icon"><i class="fa-solid fa-grip-lines-vertical"></i></span>
+          <span class="quick-card-name">Предплечья</span>
+        </button>
+        <button class="quick-card" data-muscle="back">
+          <span class="quick-card-icon"><i class="fa-solid fa-shield-halved"></i></span>
+          <span class="quick-card-name">Спина</span>
+        </button>
+
+        <button class="quick-card" data-muscle="lowerback">
+          <span class="quick-card-icon"><i class="fa-solid fa-bone"></i></span>
+          <span class="quick-card-name">Поясница</span>
+        </button>
+        <button class="quick-card" data-muscle="quads">
+          <span class="quick-card-icon"><i class="fa-solid fa-person-running"></i></span>
+          <span class="quick-card-name">Квадрицепсы</span>
+        </button>
+        <button class="quick-card" data-muscle="glutes-hamstrings">
+          <span class="quick-card-icon"><i class="fa-solid fa-ring"></i></span>
+          <span class="quick-card-name">Ягодицы / Бедра</span>
+        </button>
+        <button class="quick-card" data-muscle="calves">
+          <span class="quick-card-icon"><i class="fa-solid fa-shoe-prints"></i></span>
+          <span class="quick-card-name">Икры</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Exercises Catalog Section -->
+    <section class="exercises-section" id="exercises-section" aria-label="Каталог упражнений">
+      <div class="exercises-header-sticky">
+        <div class="exercises-header-top">
+          <h2 class="section-title">
+            База упражнений: <span id="active-group-label" class="gradient-text">Все группы</span>
+          </h2>
+          <span class="exercise-count-badge" id="exercise-count">0 упражнений</span>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <div class="controls-panel">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" placeholder="Поиск по названию или целевым мышцам...">
+            <button id="clear-search-btn" class="clear-btn hidden"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="filter-box">
+            <span class="filter-label"><i class="fa-solid fa-filter"></i> Сложность:</span>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-difficulty="all">Все</button>
+              <button class="filter-btn text-easy" data-difficulty="easy">Легкий</button>
+              <button class="filter-btn text-medium" data-difficulty="medium">Средний</button>
+              <button class="filter-btn text-hard" data-difficulty="hard">Сложный</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercises Grid -->
+      <div class="exercises-grid" id="exercises-grid">
+        <!-- Dynamically loaded cards -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="exercises-empty-state" class="empty-state hidden">
+        <i class="fa-regular fa-folder-open"></i>
+        <p>Упражнений с такими параметрами не найдено.</p>
+        <button id="reset-filters-btn" class="btn btn-secondary">Сбросить фильтры</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 SPORTI. Интерактивная анатомия калистеники. Все данные хранятся локально.</p>
+      <p class="footer-sub">Разработано с акцентом на научную биомеханику и эффективность тренировок с собственным весом.</p>
+    </div>
+  </footer>
+
+  <!-- Detail Modal Window -->
+  <div class="modal-overlay" id="exercise-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Закрыть модальное окно">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-body">
+        <div class="modal-header">
+          <span class="difficulty-badge" id="modal-difficulty">Уровень</span>
+          <h2 class="modal-title" id="modal-title">Название упражнения</h2>
+          <div class="modal-target-muscles">
+            <strong>Работающие мышцы: </strong> <span id="modal-muscles">мышцы</span>
+          </div>
+        </div>
+
+        <div class="modal-grid">
+          <!-- Left modal column (Instructions) -->
+          <div class="modal-col-left">
+            <h3 class="modal-section-title"><i class="fa-solid fa-list-check"></i> Инструкция по выполнению</h3>
+            <ol class="instruction-list" id="modal-instructions">
+              <!-- Steps loaded dynamically -->
+            </ol>
+
+            <div class="recommendations-box">
+              <div class="rec-item">
+                <span class="rec-val" id="modal-sets">3-4</span>
+                <span class="rec-lbl">Рекомендуемые подходы</span>
+              </div>
+              <div class="rec-item">
+                <span class="rec-val" id="modal-reps">8-12</span>
+                <span class="rec-lbl">Повторения / Удержание</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right modal column (Mistakes & Safety) -->
+          <div class="modal-col-right">
+            <div class="mistakes-container">
+              <h3 class="modal-section-title text-hard"><i class="fa-solid fa-circle-xmark"></i> Частые ошибки</h3>
+              <ul class="mistakes-list" id="modal-mistakes">
+                <!-- Mistakes loaded dynamically -->
+              </ul>
+            </div>
+
+            <div class="safety-container">
+              <h3 class="modal-section-title text-easy"><i class="fa-solid fa-shield-heart"></i> Техника безопасности</h3>
+              <p id="modal-safety" class="safety-text">Советы по безопасности...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
